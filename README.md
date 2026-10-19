@@ -2,7 +2,7 @@
 
 <img src="docs/readme/cover.svg" alt="Leo Paper Feed project overview" width="100%" />
 
-# Leo Paper Feed
+# Leo Paper Feed · 论文精读笔记数据源
 
 **一个可追溯版本的论文笔记发布面，交给阅读端直接消费。**
 
@@ -13,6 +13,8 @@
 [读取](#直接读取) · [数据契约](#数据契约) · [阅读端对接](#接到自己的阅读端) · [本地查看](#本地查看)
 
 </div>
+
+面向论文读者和阅读器开发者：直接[读取最新 JSON](https://raw.githubusercontent.com/dubianche123/leo-paper-feed/main/feed.json)，或按下方示例接入自己的阅读端，无需部署服务。
 
 这是 Leo 论文精读 App 的公开数据源。核心入口只有一个文件：**[feed.json](feed.json)**。笔记按日期和频道组织，提供 Markdown 正文，部分频道另外提供结构化条目摘要。
 

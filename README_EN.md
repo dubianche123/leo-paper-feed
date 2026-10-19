@@ -2,7 +2,7 @@
 
 <img src="docs/readme/cover.svg" alt="Leo Paper Feed project overview" width="100%" />
 
-# Leo Paper Feed
+# Leo Paper Feed · Paper-reading notes data
 
 **A versioned publication surface for paper notes, ready for a reader to consume.**
 
@@ -13,6 +13,8 @@
 [Fetch](#read-the-feed) · [Contract](#data-contract) · [Reader adapter](#adapt-it-to-a-reader) · [Inspect locally](#inspect-locally)
 
 </div>
+
+For paper readers and reader-app developers: [fetch the latest JSON](https://raw.githubusercontent.com/dubianche123/leo-paper-feed/main/feed.json) directly or use the adapter below; no server deployment is required.
 
 This is the public data source for Leo's paper-reading app. Its useful surface is one file: **[feed.json](feed.json)**. Notes are grouped by date and channel, with Markdown bodies and optional structured item summaries.
 
