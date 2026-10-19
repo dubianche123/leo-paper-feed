@@ -8,13 +8,13 @@
 
 [![Format](https://img.shields.io/badge/Format-JSON%20%2B%20Markdown-567A62)](feed.json)
 
-[中文](README.md) · **English**
+[简体中文](README.md) · **English**
 
 [Fetch](#read-the-feed) · [Contract](#data-contract) · [Reader adapter](#adapt-it-to-a-reader) · [Inspect locally](#inspect-locally)
 
 </div>
 
-For paper readers and reader-app developers: [fetch the latest JSON](https://raw.githubusercontent.com/dubianche123/leo-paper-feed/main/feed.json) directly or use the adapter below; no server deployment is required.
+For paper readers and reader-app developers: [fetch the latest JSON](https://raw.githubusercontent.com/dubianche123/paper-reading-notes-feed/main/feed.json) directly or use the adapter below; no server deployment is required.
 
 This is the public data source for Leo's paper-reading app. Its useful surface is one file: **[feed.json](feed.json)**. Notes are grouped by date and channel, with Markdown bodies and optional structured item summaries.
 
@@ -22,7 +22,7 @@ Use it as a reading source, a lightweight integration example, or a versioned ar
 
 ## Read the feed
 
-[Open the raw JSON](https://raw.githubusercontent.com/dubianche123/leo-paper-feed/main/feed.json) · [Inspect the current file](feed.json) · [Publication history](https://github.com/dubianche123/leo-paper-feed/commits/main/feed.json)
+[Open the raw JSON](https://raw.githubusercontent.com/dubianche123/paper-reading-notes-feed/main/feed.json) · [Inspect the current file](feed.json) · [Publication history](https://github.com/dubianche123/paper-reading-notes-feed/commits/main/feed.json)
 
 No GitHub token is needed for the public file. The `main` URL follows publication updates. For an exact historical snapshot, use a commit permalink from the file history.
 
@@ -41,7 +41,7 @@ The following is an illustrative shape. The date, labels and note text are place
       "channels": [
         {
           "id": "01",
-          "title": "Reading theme / 阅读主题",
+          "title": "Reading theme",
           "content": "# Example title\n\nMarkdown body with [a link](https://example.org).",
           "items": [
             {"title": "Example item", "summary": "Short summary", "pickId": "opaque-id"}
@@ -71,7 +71,7 @@ The following is an illustrative shape. The date, labels and note text are place
 This small adapter fetches the file and returns normalized channel records. It does not assume every date has the same channels or every channel has `items`.
 
 ```javascript
-const FEED_URL = "https://raw.githubusercontent.com/dubianche123/leo-paper-feed/main/feed.json";
+const FEED_URL = "https://raw.githubusercontent.com/dubianche123/paper-reading-notes-feed/main/feed.json";
 
 async function loadReadingChannels(url = FEED_URL) {
   const response = await fetch(url);
@@ -104,8 +104,8 @@ The endpoint is a **static JSON file**: no server-side pagination, date filter o
 Python's standard library is enough to inspect the actual date/channel structure:
 
 ```bash
-git clone https://github.com/dubianche123/leo-paper-feed.git
-cd leo-paper-feed
+git clone https://github.com/dubianche123/paper-reading-notes-feed.git
+cd paper-reading-notes-feed
 python3 - <<'PYTHON'
 import json
 from pathlib import Path
@@ -121,7 +121,7 @@ PYTHON
 | You want to… | Start here |
 | --- | --- |
 | Read the latest published notes | [feed.json](feed.json) |
-| See exactly what changed | [File history](https://github.com/dubianche123/leo-paper-feed/commits/main/feed.json) |
+| See exactly what changed | [File history](https://github.com/dubianche123/paper-reading-notes-feed/commits/main/feed.json) |
 | Build a consumer | The data-contract table and adapter above |
 | Run a producer or build the original App | Those components are outside this repository |
 

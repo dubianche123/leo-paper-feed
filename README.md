@@ -8,13 +8,13 @@
 
 [![Format](https://img.shields.io/badge/Format-JSON%20%2B%20Markdown-567A62)](feed.json)
 
-**中文** · [English](README_EN.md)
+**简体中文** · [English](README_EN.md)
 
 [读取](#直接读取) · [数据契约](#数据契约) · [阅读端对接](#接到自己的阅读端) · [本地查看](#本地查看)
 
 </div>
 
-面向论文读者和阅读器开发者：直接[读取最新 JSON](https://raw.githubusercontent.com/dubianche123/leo-paper-feed/main/feed.json)，或按下方示例接入自己的阅读端，无需部署服务。
+面向论文读者和阅读器开发者：直接[读取最新 JSON](https://raw.githubusercontent.com/dubianche123/paper-reading-notes-feed/main/feed.json)，或按下方示例接入自己的阅读端，无需部署服务。
 
 这是 Leo 论文精读 App 的公开数据源。核心入口只有一个文件：**[feed.json](feed.json)**。笔记按日期和频道组织，提供 Markdown 正文，部分频道另外提供结构化条目摘要。
 
@@ -22,7 +22,7 @@
 
 ## 直接读取
 
-[打开原始 JSON](https://raw.githubusercontent.com/dubianche123/leo-paper-feed/main/feed.json) · [查看当前文件](feed.json) · [发布历史](https://github.com/dubianche123/leo-paper-feed/commits/main/feed.json)
+[打开原始 JSON](https://raw.githubusercontent.com/dubianche123/paper-reading-notes-feed/main/feed.json) · [查看当前文件](feed.json) · [发布历史](https://github.com/dubianche123/paper-reading-notes-feed/commits/main/feed.json)
 
 读取公开文件不需要 GitHub Token。`main` 地址随发布更新；需要固定历史快照时，从文件历史取得对应提交的永久链接。
 
@@ -71,7 +71,7 @@
 下面的适配函数获取文件并返回规整后的频道记录，不假定每天都有相同频道，也不假定每个频道都有 `items`。
 
 ```javascript
-const FEED_URL = "https://raw.githubusercontent.com/dubianche123/leo-paper-feed/main/feed.json";
+const FEED_URL = "https://raw.githubusercontent.com/dubianche123/paper-reading-notes-feed/main/feed.json";
 
 async function loadReadingChannels(url = FEED_URL) {
   const response = await fetch(url);
@@ -104,8 +104,8 @@ console.log(channels.map(({ date, id, title }) => ({ date, id, title })));
 只用 Python 标准库即可检查实际日期与频道结构：
 
 ```bash
-git clone https://github.com/dubianche123/leo-paper-feed.git
-cd leo-paper-feed
+git clone https://github.com/dubianche123/paper-reading-notes-feed.git
+cd paper-reading-notes-feed
 python3 - <<'PYTHON'
 import json
 from pathlib import Path
@@ -121,7 +121,7 @@ PYTHON
 | 目标 | 入口 |
 | --- | --- |
 | 读取最新发布笔记 | [feed.json](feed.json) |
-| 检查某次发布改了什么 | [文件历史](https://github.com/dubianche123/leo-paper-feed/commits/main/feed.json) |
+| 检查某次发布改了什么 | [文件历史](https://github.com/dubianche123/paper-reading-notes-feed/commits/main/feed.json) |
 | 开发消费端 | 上面的字段契约与适配函数 |
 | 运行生成程序或构建原 App | 这两个组件位于仓库之外 |
 
