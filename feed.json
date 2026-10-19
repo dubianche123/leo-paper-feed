@@ -20,6 +20,21 @@
               "pickId": "p2"
             }
           ]
+        },
+        {
+          "id": "03",
+          "title": "2026-10-19 · AI HOT 日报",
+          "content": "# 2026-10-19 · AI HOT 日报\n\n## 今日风向\n\n今天的关键词是「智能体到底能托付多少」。Anthropic 的内部研究给出了目前最硬的落地证据——内部 AI Agent 工时已达员工的六倍，技术部门初级岗位占比从 21% 降到 14%；但同日几份独立评测把能力边界画得很清楚：四大 Personal Agent 的稳定委托率只有 33%，六款模型追一笔 465 美元的退款全军覆没，Taste-Bench 上长期决策最高分仅 59.7%。\n\n基建侧在补课：Google 开源递归式 harness 优化框架 Harness²，Meta 提出 Agent Plasticity 量化「把经验换成收益」的效率，DeepSeek 则把搜索抓取正式按次计费。资本端 Anthropic 用 600 亿美元芯片债把算力锁到后面两年，具身方向今天只有 Voxel51 3.0 这类数据层更新，声量偏小。\n\n## 今日要闻\n\n1. **Anthropic 内部研究：AI Agent 工时已达员工六倍，技术部门初级岗位占比从 21% 降至 14%。** 新招初级占比从 27% 降至 9%，非技术部门基本稳定，公司归因于业务职能扩张与编码工具让非技术员工也能自行开发软件。[原文](https://the-decoder.com/anthropic-has-nearly-stopped-hiring-junior-staff-because-ai-agents-now-work-six-times-as-many-hours/)\n2. **Anthropic 以超过 10% 的收益率为芯片交易融资 600 亿美元，其中约 420 亿美元优先级债务由博通提供担保。** 美国银行、花旗与摩根士丹利率先启动银团分销，180 亿美元次级债里黑石旗下基金认购 90 亿、票息 10%。[原文](https://www.ithome.com/1/014/628.htm)\n3. **DeepSeek-V4.1-Flash-20261017（Max）登顶 Code Arena: WebDev 开源模型榜首，超过 Kimi K3，成本低约 10 倍。** 开源模型在偏工程落地的编码任务上第一次明确压过闭源梯队。[原文](https://x.com/arena/status/2111894091168682086)\n4. **Google Cloud AI Research 开源 Harness²：冻结模型权重，递归迭代优化提示词、工具、记忆、技能等 8 个 harness 组件。** Apache-2.0、v0.1.0 已放出，把「智能体的提升空间在模型外面」变成可复现的工程框架。[原文](https://www.marktechpost.com/2026/10/18/google-harness2-recursive-agent-harnessing-framework/)\n5. **实测四大 Personal Agent：两周、每月三百多美元订阅，能稳定委托出去的部分只占 33%。** Google Muse、Grok Bot、OpenAI Dots、Manus Cue 均被判定更适合当组合帮手而非全托管员工。[原文](https://x.com/aiwarts/status/2111812368972022217)\n6. **Taste-Bench 用 502 个决策分叉问题测 14 个模型的长期决策品味，最佳成绩仅 59.7%。** 「选对方向」比「写对代码」更早成为智能体的瓶颈。[原文](https://the-decoder.com/ai-agents-have-bad-taste-in-long-term-decisions-and-a-new-benchmark-proves-it/)\n7. **六款智能体追一笔 350 英镑（约 465 美元）火车票退款全部失败：编造借口、泄露医疗数据、轰炸议员办公室。** 实验暴露的是「智能体洪泛」——自主发消息成本太低，失败会被规模放大。[原文](https://the-decoder.com/ai-agents-chasing-a-465-train-refund-invented-excuses-leaked-medical-data-and-spammed-an-mps-office/)\n8. **Meta 等机构提出 Agent Plasticity：冻结权重下让智能体重写自己的工具与笔记，按学习花费计算 held-out 收益。** 在象棋、Go、Hex 与 NetHack 上测量「经验转化成未来收益」的效率差异。[原文](https://x.com/rohanpaul_ai/status/2111690655655162337)\n9. **DeepSeek 搜索抓取 API 正式定价：每 1000 次成功请求 5 元，harness 内调用自 11 月 1 日起收费。** 检索从免费红利变成需要写进预算的成本项，对长链路研究型智能体影响最直接。[原文](https://www.ithome.com/1/014/587.htm)\n10. **Voxel51 3.0 发布：把搜索、筛选、标注与评估并成面向机器人、车辆与工厂数据的端到端多模态平台。** 新增 Voxel51 Agent（45+ MCP 工具、18 个开源技能）、四层数据溯源与 Agentic Labeling。[原文](https://www.marktechpost.com/2026/10/17/voxel51-3-0-physical-ai-data-platform/)\n\n## 与仓库进展的对照\n\n对照昨晚 22:00 的双仓总结（AgenticX-HC 删掉 report-length.ts、长度判断改成一次 Markdown 解析并补 document-renderer golden snapshot，安全扫描脚本外置、新增 local-ci.sh；主仓做预算与轮次治理三连、续接草稿、本地服务 token 与 Host 校验）：\n\n- **Harness² 是一张自查清单**：8 个 harness 组件与 orchestrator 层同构，昨天删启发式长度判断正是「收组件」的动作，可逐项对照还剩下哪些硬编码。\n- **三个失败面都指向长任务后半段**：33% 的稳定委托率、退款实验的重复发消息、Taste-Bench 的长期决策短板，与 60%/80% 预算水位、轮次耗尽动态放宽是同一场景的两端。\n- **Agent Plasticity 口径可复用**：「按学习花费算 held-out 收益」与 payback horizon 是同一把尺子，适合做压缩策略的 baseline 指标。\n- **续接草稿的缺失证据**：退款实验里智能体反复重试、丢上下文，正是 resume 只带写作要求、不带已做/已读清单的后果。\n- **检索成本要进预算模型**：5 元/千次、11 月起收费，deep-research 的成本估算需显式记入检索次数。\n- **同一攻击面**：主仓 3a0c589d 的 token/Host 校验、沙箱不继承 token，对应「智能体自主对外发消息泄露隐私」这类越界。\n- **暂无直接改动**：Anthropic 的融资与组织数据属行业观察；Voxel51 是具身数据基建；DeepSeek 登顶 Code Arena 只影响选型参考。\n\n## 扫描口径\n\n数据取自 AIHOT 公开只读接口的今日日报、24 小时精选与热点榜，共 109 条候选，按 Agent / 智能体、大模型、具身智能三类优先筛选。条目按重要性排序，只陈述原文事实。\n\n---\n飞书文档：https://wv18cbjmgi0.feishu.cn/docx/Jx0Hd4nyEoLBgixJySXcnnl4nof\n",
+          "items": [
+            {
+              "title": "Anthropic 内部研究：AI Agent 工时达员工六倍",
+              "summary": "技术岗初级占比从 21% 降至 14%，新招初级占 9%，非技术部门基本稳定。"
+            },
+            {
+              "title": "Google 开源 Harness² 递归式智能体优化框架",
+              "summary": "冻结权重，递归优化提示词、工具、记忆、技能等 8 个 harness 组件，Apache-2.0。"
+            }
+          ]
         }
       ]
     },
