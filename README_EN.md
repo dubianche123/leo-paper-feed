@@ -4,77 +4,125 @@
 
 # Leo Paper Feed
 
-**A small, readable JSON contract for published paper notes.**
+**A versioned publication surface for paper notes, ready for a reader to consume.**
+
+[![Format](https://img.shields.io/badge/Format-JSON%20%2B%20Markdown-567A62)](feed.json)
 
 [中文](README.md) · **English**
 
-[Read](#read-the-feed) · [Contract](#data-contract) · [Local inspection](#inspect-locally)
+[Fetch](#read-the-feed) · [Contract](#data-contract) · [Reader adapter](#adapt-it-to-a-reader) · [Inspect locally](#inspect-locally)
 
 </div>
 
-A public data source for Leo's paper-reading app. This repository supplies [feed.json](feed.json); the generating pipeline and reader application are not included. Content is grouped by date and channel, with Markdown bodies for a reader to display.
+This is the public data source for Leo's paper-reading app. Its useful surface is one file: **[feed.json](feed.json)**. Notes are grouped by date and channel, with Markdown bodies and optional structured item summaries.
 
-## Data flow
-
-![How it works](docs/readme/flow.svg)
+Use it as a reading source, a lightweight integration example, or a versioned artifact you can inspect alongside its commit history. The generator, scheduler and reader application's source code live outside this repository.
 
 ## Read the feed
 
-[Raw JSON](https://raw.githubusercontent.com/dubianche123/leo-paper-feed/main/feed.json) · [Browse current data](feed.json)
+[Open the raw JSON](https://raw.githubusercontent.com/dubianche123/leo-paper-feed/main/feed.json) · [Inspect the current file](feed.json) · [Publication history](https://github.com/dubianche123/leo-paper-feed/commits/main/feed.json)
 
-```javascript
-const response = await fetch("https://raw.githubusercontent.com/dubianche123/leo-paper-feed/main/feed.json");
-if (!response.ok) throw new Error(`Feed HTTP ${response.status}`);
-const feed = await response.json();
-
-for (const day of feed.days ?? []) {
-  for (const channel of day.channels ?? []) {
-    console.log(day.date, channel.id, channel.title);
-    // Render channel.content with your Markdown component.
-  }
-}
-```
-
-No GitHub token is required. The URL serves a versioned static file, not a backend with pagination or query filters.
+No GitHub token is needed for the public file. The `main` URL follows publication updates. For an exact historical snapshot, use a commit permalink from the file history.
 
 ## Data contract
 
-Illustrative shape; titles and content below are placeholders:
+![Date blocks, channels, Markdown and optional items](docs/readme/flow.svg)
+
+The following is an illustrative shape. The date, labels and note text are placeholders; it is not an excerpt of a real paper summary.
 
 ```json
 {
-  "days": [{
-    "date": "YYYY-MM-DD",
-    "model": "source-label",
-    "channels": [{
-      "id": "01", "title": "Reading theme",
-      "content": "# Example\n\nMarkdown content",
-      "items": [{"title": "Example", "summary": "Summary", "pickId": "example-id"}]
-    }]
-  }]
+  "days": [
+    {
+      "date": "YYYY-MM-DD",
+      "model": "source-label",
+      "channels": [
+        {
+          "id": "01",
+          "title": "Reading theme / 阅读主题",
+          "content": "# Example title\n\nMarkdown body with [a link](https://example.org).",
+          "items": [
+            {"title": "Example item", "summary": "Short summary", "pickId": "opaque-id"}
+          ]
+        }
+      ]
+    }
+  ]
 }
 ```
 
-| Field | Type | Meaning |
+| Path | Type | How a reader uses it |
 | --- | --- | --- |
-| `days` | array | Date-grouped content blocks |
-| `date` | string | Date carried by the block |
-| `model` | string | The supplied model identifier; preserve its value |
-| `channels` | array | Channels for this date block |
-| `id`, `title` | string | Channel identifier and display title |
-| `content` | string | Markdown body |
-| `items` | optional array | Some channels supply item summaries with `title`, `summary`, and `pickId` |
+| `days` | Array | Iterate date blocks; do not hard-code a day count. |
+| `days[].date` | String | Display the date supplied by the publisher. |
+| `days[].model` | String | Preserve the supplied model/source label; it is metadata, not a provider API configuration. |
+| `days[].channels` | Array | Build the channel list for that date. |
+| `channels[].id`, `.title` | Strings | Identify and label a channel; retain the date alongside its ID. |
+| `channels[].content` | String | Render the complete Markdown reading body. |
+| `channels[].items` | Optional array | Supplementary structured summaries; an absent array is valid in the current data. |
+| `items[].title`, `.summary`, `.pickId` | Strings | Display item metadata and preserve `pickId` as an opaque identifier. |
 
-Treat `items` as optional and do not assume a fixed number of days, channels or entries.
+`content` and `items` serve different roles. A reader can display a complete channel from `content` even when there is no `items` list. Do not rebuild the Markdown body by concatenating item summaries or infer a paper URL from `pickId`.
+
+## Adapt it to a reader
+
+This small adapter fetches the file and returns normalized channel records. It does not assume every date has the same channels or every channel has `items`.
+
+```javascript
+const FEED_URL = "https://raw.githubusercontent.com/dubianche123/leo-paper-feed/main/feed.json";
+
+async function loadReadingChannels(url = FEED_URL) {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`Feed HTTP ${response.status}`);
+  const feed = await response.json();
+  if (!Array.isArray(feed.days)) throw new Error("Expected feed.days array");
+
+  return feed.days.flatMap(day =>
+    (Array.isArray(day.channels) ? day.channels : []).map(channel => ({
+      date: day.date,
+      model: day.model,
+      id: channel.id,
+      title: channel.title,
+      markdown: typeof channel.content === "string" ? channel.content : "",
+      items: Array.isArray(channel.items) ? channel.items : [],
+    }))
+  );
+}
+
+const channels = await loadReadingChannels();
+console.log(channels.map(({ date, id, title }) => ({ date, id, title })));
+```
+
+Connect the returned `title`, `date` and `markdown` to your reader's components. Keep Markdown rendering/link handling in the reader; a channel body may contain headings, lists and external links. Use item cards only when `items` is present and useful for that view.
+
+The endpoint is a **static JSON file**: no server-side pagination, date filter or query API is implemented here. Refreshing, loading/error states, search and local caching belong to the consuming application. Preserve the last successfully loaded records if you want reading to continue through a transient fetch error.
 
 ## Inspect locally
+
+Python's standard library is enough to inspect the actual date/channel structure:
 
 ```bash
 git clone https://github.com/dubianche123/leo-paper-feed.git
 cd leo-paper-feed
-python3 -c 'import json; d=json.load(open("feed.json")); print([(r["date"], len(r.get("channels", []))) for r in d.get("days", [])])'
+python3 - <<'PYTHON'
+import json
+from pathlib import Path
+feed = json.loads(Path("feed.json").read_text(encoding="utf-8"))
+for day in feed.get("days", []):
+    print(day.get("date"), day.get("model"))
+    for channel in day.get("channels", []):
+        print(" ", channel.get("id"), channel.get("title"),
+              "items:", len(channel.get("items", [])))
+PYTHON
 ```
+
+| You want to… | Start here |
+| --- | --- |
+| Read the latest published notes | [feed.json](feed.json) |
+| See exactly what changed | [File history](https://github.com/dubianche123/leo-paper-feed/commits/main/feed.json) |
+| Build a consumer | The data-contract table and adapter above |
+| Run a producer or build the original App | Those components are outside this repository |
 
 ## Scope
 
-This is a read-only public data distribution. The producer, scheduling setup and app build are outside this repository. Contents change with publication updates; clients handle refreshing, missing fields, Markdown rendering and links.
+The feed contents and channel layout can change as new notes are published. The contract above documents the supplied structure; there is no formal schema-version negotiation or service availability guarantee in this data-only repository. No software license is asserted for the notes by this README.

@@ -1,21 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-labelledby="t d"><title id="t">Leo Paper Feed · How it works</title><desc id="d">Only feed.json is supplied here. Producer and reader boxes describe integration roles, not bundled applications.</desc>
-<rect x="1" y="1" width="1198" height="298" rx="18" fill="#FAFCFF" stroke="#DCE5F0"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
+<title id="title">Leo Paper Feed · The data contract</title><desc id="desc">Leo Paper Feed · The data contract. Repository-specific technical illustration.</desc>
 <g font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">
-<text x="36" y="42" font-size="24" fill="#253B55" font-weight="650" text-anchor="start">Leo Paper Feed · How it works</text>
-<rect x="36" y="97" width="264" height="100" rx="12" fill="#ECF3FE" stroke="#95B3DD"/>
-<text x="52.0" y="132" font-size="19" fill="#253B55" font-weight="650" text-anchor="start">External producer</text>
-<text x="52.0" y="163" font-size="13" fill="#60748C" font-weight="400" text-anchor="start">Not in this repository</text>
-<path d="M300 147H324m-6-4 6 4-6 4" stroke="#7186A3" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
-<rect x="324" y="97" width="264" height="100" rx="12" fill="#E9F5F0" stroke="#88B7A3"/>
-<text x="340.0" y="132" font-size="19" fill="#253B55" font-weight="650" text-anchor="start">feed.json</text>
-<text x="340.0" y="163" font-size="13" fill="#60748C" font-weight="400" text-anchor="start">Public data artifact</text>
-<path d="M588 147H612m-6-4 6 4-6 4" stroke="#7186A3" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
-<rect x="612" y="97" width="264" height="100" rx="12" fill="#ECF3FE" stroke="#95B3DD"/>
-<text x="628.0" y="132" font-size="19" fill="#253B55" font-weight="650" text-anchor="start">Reader client</text>
-<text x="628.0" y="163" font-size="13" fill="#60748C" font-weight="400" text-anchor="start">Parse days + channels</text>
-<path d="M876 147H900m-6-4 6 4-6 4" stroke="#7186A3" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
-<rect x="900" y="97" width="264" height="100" rx="12" fill="#E9F5F0" stroke="#88B7A3"/>
-<text x="916.0" y="132" font-size="19" fill="#253B55" font-weight="650" text-anchor="start">Markdown view</text>
-<text x="916.0" y="163" font-size="13" fill="#60748C" font-weight="400" text-anchor="start">Render channel content</text>
-<text x="36" y="258" font-size="13" fill="#60748C" font-weight="400" text-anchor="start">Only feed.json is supplied here. Producer and reader boxes describe integration roles, not bundled applications.</text>
+<rect x="1" y="1" width="1198" height="648" rx="20" fill="#F8FAFD" stroke="#DBE3ED" />
+<text x="36" y="44" font-size="25" fill="#23324A" font-weight="700" text-anchor="start">The channel Markdown is the reading surface; items are optional.</text>
+<rect x="36" y="109" width="278" height="126" rx="14" fill="#E7F5EF" stroke="#93C8B0" />
+<text x="54" y="141" font-size="20" fill="#23324A" font-weight="700" text-anchor="start">feed.json</text>
+<text x="54" y="171" font-size="16" fill="#536782" font-weight="400" text-anchor="start">days[]</text>
+<text x="54" y="195" font-size="16" fill="#536782" font-weight="400" text-anchor="start">One public, versioned file</text>
+<rect x="456" y="109" width="292" height="126" rx="14" fill="#EAF1FE" stroke="#9CB4DF" />
+<text x="474" y="141" font-size="20" fill="#23324A" font-weight="700" text-anchor="start">days[]</text>
+<text x="474" y="171" font-size="16" fill="#536782" font-weight="400" text-anchor="start">date · model · channels[]</text>
+<text x="474" y="195" font-size="16" fill="#536782" font-weight="400" text-anchor="start">Group content by date</text>
+<rect x="888" y="109" width="276" height="126" rx="14" fill="#F0EAFC" stroke="#B7A2D7" />
+<text x="906" y="141" font-size="20" fill="#23324A" font-weight="700" text-anchor="start">channels[]</text>
+<text x="906" y="171" font-size="16" fill="#536782" font-weight="400" text-anchor="start">id · title · content</text>
+<text x="906" y="195" font-size="16" fill="#536782" font-weight="400" text-anchor="start">A displayable reading unit</text>
+<path d="M314 172H456m-7 -5 7 5 -7 5" fill="none" stroke="#6E809A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M748 172H888m-7 -5 7 5 -7 5" fill="none" stroke="#6E809A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="888" y="360" width="276" height="148" rx="14" fill="#E7F5EF" stroke="#93C8B0" />
+<text x="906" y="392" font-size="20" fill="#23324A" font-weight="700" text-anchor="start">content</text>
+<text x="906" y="422" font-size="16" fill="#536782" font-weight="400" text-anchor="start">Required Markdown string</text>
+<text x="906" y="446" font-size="16" fill="#536782" font-weight="400" text-anchor="start">Headings, text and links</text>
+<text x="906" y="470" font-size="16" fill="#536782" font-weight="400" text-anchor="start">Render in a reader client</text>
+<rect x="456" y="360" width="292" height="148" rx="14" fill="#FFF3DD" stroke="#D9BD83" />
+<text x="474" y="392" font-size="20" fill="#23324A" font-weight="700" text-anchor="start">items?</text>
+<text x="474" y="422" font-size="16" fill="#536782" font-weight="400" text-anchor="start">Optional structured summaries</text>
+<text x="474" y="446" font-size="16" fill="#536782" font-weight="400" text-anchor="start">title · summary · pickId</text>
+<text x="474" y="470" font-size="16" fill="#536782" font-weight="400" text-anchor="start">Do not assume every channel</text>
+<path d="M1026 235V360m-5 -7 5 7 5 -7" fill="none" stroke="#6E809A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M980 235V287H602V360" fill="none" stroke="#B99B61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 6"/>
+<text x="618" y="312" font-size="16" fill="#8F7646" font-weight="400" text-anchor="start">when present</text>
+<path d="M1026 508V540H175V508" fill="none" stroke="#6E809A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M170 515l5-7 5 7" fill="none" stroke="#6E809A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M602 508V540" fill="none" stroke="#B99B61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 6"/>
+<rect x="36" y="360" width="278" height="148" rx="14" fill="#F0F3F8" stroke="#BCC9D8" />
+<text x="54" y="392" font-size="20" fill="#23324A" font-weight="700" text-anchor="start">Reader integration</text>
+<text x="54" y="422" font-size="16" fill="#536782" font-weight="400" text-anchor="start">Fetch → parse → render</text>
+<text x="54" y="446" font-size="16" fill="#536782" font-weight="400" text-anchor="start">Refresh when appropriate</text>
+<text x="54" y="470" font-size="16" fill="#536782" font-weight="400" text-anchor="start">Producer / app not bundled</text>
+<text x="36" y="577" font-size="16" fill="#60728A" font-weight="400" text-anchor="start">Schema illustration. Channel counts and item counts may vary across published dates.</text>
+<text x="36" y="611" font-size="16" fill="#60728A" font-weight="400" text-anchor="start">The raw GitHub URL is a static file endpoint; it has no server-side pagination or query API.</text>
 </g></svg>

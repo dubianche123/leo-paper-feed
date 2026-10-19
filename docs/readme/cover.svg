@@ -1,22 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="430" viewBox="0 0 1280 430" role="img" aria-labelledby="t d">
-<title id="t">Leo Paper Feed</title><desc id="d">One JSON feed. A readable stream of paper notes.</desc>
-<rect width="1280" height="430" rx="22" fill="#1C332F"/>
-<path d="M1030 0 1280 250M1155 0l125 125" stroke="#FFFFFF" stroke-opacity=".035" stroke-width="65"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="520" viewBox="0 0 1280 520" role="img" aria-labelledby="title desc">
+<title id="title">Leo Paper Feed</title><desc id="desc">Leo Paper Feed. Repository-specific technical illustration.</desc>
+<defs><linearGradient id="project-bg" x2="1" y2="1"><stop stop-color="#153028"/><stop offset="1" stop-color="#20363C"/></linearGradient><pattern id="texture" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#FFFFFF" fill-opacity=".035"/></pattern></defs>
 <g font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">
-<text x="48" y="48" font-size="13" fill="#87D5AA" font-weight="650" text-anchor="start">A PUBLIC READING FEED</text>
-<text x="48" y="122" font-size="48" fill="#F5F8FF" font-weight="700" text-anchor="start">Leo Paper Feed</text>
-<text x="50" y="164" font-size="21" fill="#C1CFDF" font-weight="400" text-anchor="start">One JSON feed. A readable stream of paper notes.</text>
-<rect x="48" y="210" width="352" height="122" rx="14" fill="#FFFFFF" fill-opacity=".055" stroke="#FFFFFF" stroke-opacity=".14"/>
-<text x="68" y="244" font-size="13" fill="#87D5AA" font-weight="650" text-anchor="start">01 / PUBLISH</text>
-<text x="68" y="291" font-size="17" fill="#EDF3FA" font-weight="500" text-anchor="start">A versioned feed.json</text>
-<path d="M413 271h25m-7-5 7 5-7 5" fill="none" stroke="#9DAFC4" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="456" y="210" width="352" height="122" rx="14" fill="#FFFFFF" fill-opacity=".055" stroke="#FFFFFF" stroke-opacity=".14"/>
-<text x="476" y="244" font-size="13" fill="#87D5AA" font-weight="650" text-anchor="start">02 / READ</text>
-<text x="476" y="291" font-size="17" fill="#EDF3FA" font-weight="500" text-anchor="start">Dates, channels + entries</text>
-<path d="M821 271h25m-7-5 7 5-7 5" fill="none" stroke="#9DAFC4" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="864" y="210" width="352" height="122" rx="14" fill="#FFFFFF" fill-opacity=".055" stroke="#FFFFFF" stroke-opacity=".14"/>
-<text x="884" y="244" font-size="13" fill="#87D5AA" font-weight="650" text-anchor="start">03 / DISPLAY</text>
-<text x="884" y="291" font-size="17" fill="#EDF3FA" font-weight="500" text-anchor="start">Markdown notes in a reader</text>
-<path d="M48 369h1184" stroke="#FFFFFF" stroke-opacity=".14"/>
-<text x="50" y="400" font-size="14" fill="#AFC0D4" font-weight="400" text-anchor="start">Read-only public data · Markdown content · Generating app not included</text>
+<rect x="1" y="1" width="1278" height="518" rx="20" fill="url(#project-bg)" stroke="#283951" />
+<rect x="1" y="1" width="1278" height="518" rx="20" fill="url(#texture)"/>
+<path d="M65 36c-7-5-12-4-12-4v21s6-2 12 2c7-4 13-2 13-2V32s-6-1-13 4v19" fill="none" stroke="#A8D7A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M0 430H1280M640 0V520" fill="none" stroke="#25354F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="88" y="49" font-size="13" fill="#A8D7A0" font-weight="700" text-anchor="start">A SMALL PUBLICATION SURFACE FOR PAPER NOTES</text>
+<text x="50" y="132" font-size="45" fill="#F7FAFF" font-weight="700" text-anchor="start">Leo Paper Feed</text>
+<text x="52" y="190" font-size="22" fill="#C2CFE1" font-weight="400" text-anchor="start">From structured JSON</text>
+<text x="52" y="223" font-size="22" fill="#C2CFE1" font-weight="400" text-anchor="start">to a readable stream of notes.</text>
+<text x="52" y="350" font-size="17" fill="#8EA4BF" font-weight="400" text-anchor="start">— One versioned public data file.</text>
+<text x="52" y="379" font-size="17" fill="#8EA4BF" font-weight="400" text-anchor="start">— Dates, channels and Markdown content.</text>
+<text x="52" y="408" font-size="17" fill="#8EA4BF" font-weight="400" text-anchor="start">— A documented contract for reader clients.</text>
+<text x="52" y="486" font-size="12" fill="#6F86A4" font-weight="700" text-anchor="start">PROJECT OVERVIEW  /  SCHEMATIC</text>
+<rect x="699" y="65" width="524" height="155" rx="14" fill="#17263D" stroke="#364A66" />
+<text x="717" y="96" font-size="17" fill="#A8D7A0" font-weight="700" text-anchor="start">feed.json</text>
+<text x="717" y="126" font-size="16" fill="#DFE8F5" font-weight="400" text-anchor="start">days[]</text>
+<text x="717" y="150" font-size="16" fill="#DFE8F5" font-weight="400" text-anchor="start">  date · model · channels[]</text>
+<text x="717" y="174" font-size="16" fill="#DFE8F5" font-weight="400" text-anchor="start">    id · title · content · items?</text>
+<path d="M961 220V264m-5 -7 5 7 5 -7" fill="none" stroke="#A8D7A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="699" y="275" width="524" height="171" rx="14" fill="#EAF2E8" stroke="#A2B9A0" />
+<text x="721" y="309" font-size="12" fill="#52715E" font-weight="700" text-anchor="start">READING VIEW</text>
+<text x="721" y="349" font-size="25" fill="#273D34" font-weight="700" text-anchor="start">A date. A channel. A paper note.</text>
+<text x="721" y="386" font-size="18" fill="#566D60" font-weight="400" text-anchor="start">Markdown content rendered by your reader.</text>
+<path d="M721 412H1139" fill="none" stroke="#B8C9B7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="700" y="483" font-size="12" fill="#8FA4C0" font-weight="400" text-anchor="start">PUBLIC JSON DATA   /   THE GENERATOR AND READER LIVE ELSEWHERE</text>
 </g></svg>
