@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-labelledby="t d"><title id="t">Leo Paper Feed · How it works</title><desc id="d">Only feed.json is supplied here. Producer and reader boxes describe integration roles, not bundled applications.</desc>
+<rect x="1" y="1" width="1198" height="298" rx="18" fill="#FAFCFF" stroke="#DCE5F0"/>
+<g font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+<text x="36" y="42" font-size="24" fill="#253B55" font-weight="650" text-anchor="start">Leo Paper Feed · How it works</text>
+<rect x="36" y="97" width="264" height="100" rx="12" fill="#ECF3FE" stroke="#95B3DD"/>
+<text x="52.0" y="132" font-size="19" fill="#253B55" font-weight="650" text-anchor="start">External producer</text>
+<text x="52.0" y="163" font-size="13" fill="#60748C" font-weight="400" text-anchor="start">Not in this repository</text>
+<path d="M300 147H324m-6-4 6 4-6 4" stroke="#7186A3" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+<rect x="324" y="97" width="264" height="100" rx="12" fill="#E9F5F0" stroke="#88B7A3"/>
+<text x="340.0" y="132" font-size="19" fill="#253B55" font-weight="650" text-anchor="start">feed.json</text>
+<text x="340.0" y="163" font-size="13" fill="#60748C" font-weight="400" text-anchor="start">Public data artifact</text>
+<path d="M588 147H612m-6-4 6 4-6 4" stroke="#7186A3" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+<rect x="612" y="97" width="264" height="100" rx="12" fill="#ECF3FE" stroke="#95B3DD"/>
+<text x="628.0" y="132" font-size="19" fill="#253B55" font-weight="650" text-anchor="start">Reader client</text>
+<text x="628.0" y="163" font-size="13" fill="#60748C" font-weight="400" text-anchor="start">Parse days + channels</text>
+<path d="M876 147H900m-6-4 6 4-6 4" stroke="#7186A3" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+<rect x="900" y="97" width="264" height="100" rx="12" fill="#E9F5F0" stroke="#88B7A3"/>
+<text x="916.0" y="132" font-size="19" fill="#253B55" font-weight="650" text-anchor="start">Markdown view</text>
+<text x="916.0" y="163" font-size="13" fill="#60748C" font-weight="400" text-anchor="start">Render channel content</text>
+<text x="36" y="258" font-size="13" fill="#60748C" font-weight="400" text-anchor="start">Only feed.json is supplied here. Producer and reader boxes describe integration roles, not bundled applications.</text>
+</g></svg>
