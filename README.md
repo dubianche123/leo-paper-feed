@@ -14,23 +14,21 @@
 
 </div>
 
-面向论文读者和阅读器开发者：直接[读取最新 JSON](https://raw.githubusercontent.com/dubianche123/paper-reading-notes-feed/main/feed.json)，或按下方示例接入自己的阅读端，无需部署服务。
+为日常论文精读 App 专门维护一台后端服务器和数据库其实很划不来。这个仓库采用了更轻的做法：把每天生成的论文精读笔记直接编译成单文件 **[feed.json](feed.json)**，通过 Git 版本化发布，让客户端或任何第三方阅读器直接拉取静态 JSON 消费。
 
-这是 Leo 论文精读 App 的公开数据源。核心入口只有一个文件：**[feed.json](feed.json)**。笔记按日期和频道组织，提供 Markdown 正文，部分频道另外提供结构化条目摘要。
-
-它可以作为阅读数据源、轻量接入示例，也可以配合提交历史检查每次发布变化。生成程序、调度器和原阅读 App 的源码不在本仓库中。
+这样做有三个很实在的好处：**零后端运维**、**每次更新在 Git Commit 里一清二楚**，而且任何阅读端只需要几十行代码就能接入。本仓库专门作为公开数据发布层，笔记生成脚本、定时调度器与原阅读 App 的源码不在本仓库内。
 
 ## 直接读取
 
 [打开原始 JSON](https://raw.githubusercontent.com/dubianche123/paper-reading-notes-feed/main/feed.json) · [查看当前文件](feed.json) · [发布历史](https://github.com/dubianche123/paper-reading-notes-feed/commits/main/feed.json)
 
-读取公开文件不需要 GitHub Token。`main` 地址随发布更新；需要固定历史快照时，从文件历史取得对应提交的永久链接。
+直接拉取公开文件不需要 GitHub Token。`main` 分支地址会随每日发布更新；如果你想在测试或阅读器里固定某天的快照，可以直接从提交历史里复制对应 Commit 的 permalink。
 
 ## 数据契约
 
 ![日期块、频道、Markdown 与可选条目](docs/readme/flow-cn.svg)
 
-以下展示结构，日期、标识和正文都是占位内容，不是实际论文摘要的摘录。
+`feed.json` 顶层按日期（`days`）和阅读频道（`channels`）组织：
 
 ```json
 {
@@ -125,6 +123,6 @@ PYTHON
 | 开发消费端 | 上面的字段契约与适配函数 |
 | 运行生成程序或构建原 App | 这两个组件位于仓库之外 |
 
-## 范围
+## 边界说明
 
-笔记内容和频道布局会随发布变化。以上契约说明当前提供的数据结构；这个纯数据仓库没有正式的 schema 版本协商或服务可用性保证。本 README 不替笔记内容声明软件许可证。
+频道划分与笔记排布可能会随日常阅读主题微调。消费端解析时只需依赖上表中的基础字段（并为可选的 `items` 做好空数组回退），这样即使某天新增或调整了频道，阅读器也能平稳兼容。

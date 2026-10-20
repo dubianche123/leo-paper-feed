@@ -14,23 +14,21 @@
 
 </div>
 
-For paper readers and reader-app developers: [fetch the latest JSON](https://raw.githubusercontent.com/dubianche123/paper-reading-notes-feed/main/feed.json) directly or use the adapter below; no server deployment is required.
+Running a dedicated database and backend server just to serve daily paper-reading notes is unnecessary overhead. This repository takes a lighter approach: daily curated reading notes are compiled into a single **[feed.json](feed.json)** file and published via Git, so any reader app or script can fetch the static JSON directly.
 
-This is the public data source for Leo's paper-reading app. Its useful surface is one file: **[feed.json](feed.json)**. Notes are grouped by date and channel, with Markdown bodies and optional structured item summaries.
-
-Use it as a reading source, a lightweight integration example, or a versioned artifact you can inspect alongside its commit history. The generator, scheduler and reader application's source code live outside this repository.
+That keeps the setup **zero-backend**, makes **every daily update auditable in `git log`**, and lets any reader client integrate in ~20 lines of code. This repository serves strictly as the public data publication layer; the note generator, scheduler, and original reader app live in separate repositories.
 
 ## Read the feed
 
 [Open the raw JSON](https://raw.githubusercontent.com/dubianche123/paper-reading-notes-feed/main/feed.json) · [Inspect the current file](feed.json) · [Publication history](https://github.com/dubianche123/paper-reading-notes-feed/commits/main/feed.json)
 
-No GitHub token is needed for the public file. The `main` URL follows publication updates. For an exact historical snapshot, use a commit permalink from the file history.
+No GitHub token is required. The `main` branch URL tracks the latest daily release; if you want a pinned snapshot for testing or archiving, grab a commit permalink from the file history.
 
 ## Data contract
 
 ![Date blocks, channels, Markdown and optional items](docs/readme/flow.svg)
 
-The following is an illustrative shape. The date, labels and note text are placeholders; it is not an excerpt of a real paper summary.
+`feed.json` groups notes by publication date (`days`) and reading channel (`channels`):
 
 ```json
 {
@@ -125,6 +123,6 @@ PYTHON
 | Build a consumer | The data-contract table and adapter above |
 | Run a producer or build the original App | Those components are outside this repository |
 
-## Scope
+## Scope & compatibility
 
-The feed contents and channel layout can change as new notes are published. The contract above documents the supplied structure; there is no formal schema-version negotiation or service availability guarantee in this data-only repository. No software license is asserted for the notes by this README.
+Channel themes and note layouts may evolve over time as daily reading topics shift. As long as your consumer relies on the core fields in the table above (and falls back to `[]` when optional `items` are omitted), new dates and channels will render cleanly without breaking existing readers.
