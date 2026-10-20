@@ -1,6 +1,27 @@
 {
   "days": [
     {
+      "date": "2026-10-20",
+      "model": "Amoo",
+      "channels": [
+        {
+          "id": "03",
+          "title": "2026-10-20 · AI HOT 日报",
+          "content": "# 2026-10-20 · AI HOT 日报\n\n## 今日风向\n\n今天的重心从「模型更强」转到「编排与上下文怎么不出错」。Meta 公开了 thin orchestrator 模式——约 1300 行的编排器只做路由与可靠性检查，把 20 多个工作流分派给 14 个上下文隔离的子智能体；斯坦福的医疗 Agent 基准则指出，失败主因是跨文档、跨系统传递信息时丢失上下文，最佳模型单次任务完成率不足一半。两条合起来说明：智能体的瓶颈正在从单步能力移到状态交接。\n\n供给端继续降价提速：MiniMax M3.1 Flash 推理快近三倍、成本降 70%，Mercury 3 用扩散架构做到 1000 tok/s 且支持 1M 上下文，DeepSeek 在 Agent Arena 拿下开源第一。监管与安全同步收紧：DHS 下令联邦文职机构移除 DeepSeek，另有黑客用开源平台编排的智能体入侵超 100 家网站。\n\n## 今日要闻\n\n1. **斯坦福 HAI 发布三个医疗 AI 基准：PhysicianBench 上最佳模型单次仅完成 46%，HealthAdminBench 上 Claude Opus 4.6 完成 36.3%，失败主要来自跨文档与系统传递时丢上下文。** 两项基准都以合成数据、代码与排行榜开放。[原文](https://hai.stanford.edu/news/measuring-what-medical-ai-can-actually-do)\n2. **Meta 详解 Thin Orchestrator：1300 行编排器只负责任务路由与可靠性检查，把 20 多个工作流分派给 14 个上下文隔离子智能体，自身不做领域推理。** 把状态交接显式化为架构约束，而不是靠提示词维持上下文。[原文](https://engineering.fb.com/2026/10/19/ml-applications/thin-orchestrator-ai-agent-architecture/)\n3. **DeepSeek-V4.1-Flash-20261017（Max）登顶 Agent Arena 开源第一、总榜第 11，7.5K 真实会话净提升 5.1%，Confirmed Success 提升 11.5% 且无工具幻觉。** 中位任务成本 0.20 美元，约为 GPT-6.1 Sol 提升幅度的 37%、成本的 27%。[原文](https://x.com/arena/status/2112247114944360666)\n4. **黑客用开源 AI 平台 Cairn 编排的智能体入侵超 100 个网站，受害者包括 John Deere、SharkNinja 与 Cummins。** 编排能力被直接武器化，攻击面从模型本身转到编排层与凭据。[原文](https://www.theverge.com/ai-artificial-intelligence/1013643/ai-agents-hack-john-deere-shark-ninja-cummins)\n5. **美国国土安全部依据 2018 年供应链法发布 2026-01 号命令，要求全部联邦文职机构停止采购并移除 DeepSeek 及基于其开发的第三方产品。** 模型选型开始带合规约束，依赖单一供应商的链路需要可替换方案。[原文](https://madrobot.blog/2026/10/19/us-bans-deepseek-federal-agencies-dhs-order-remove-third-party/)\n6. **MiniMax 发布 M3.1 Flash：推理提速近三倍、用量成本降低 70%，权重将于 10 月 23 日开放。** 匿名测试版本 Space Bunny 曾处理超 200 万亿 token。[原文](https://www.minimax.io/blog/minimax-m31f)\n7. **Inception 扩散模型 Mercury 3 上线 OpenRouter：生成速度超 1000 tok/s、支持 1M 上下文，是 Mercury 2.5 的 4 倍。** 上线期价格 0.10/0.35 美元每百万 token。[原文](https://x.com/OpenRouter/status/2112225779782398131)\n8. **Viggle AI 发布 JST-2 世界基础模型。** 世界模型继续由视频生成团队向具身与可交互仿真延伸，是今天具身方向少有的新发布。[原文](https://x.com/ViggleAI/status/2112202242048528540)\n9. **Numan 复盘 AI 健康教练 Nu 的评测体系：稀缺资产不是提示词而是评测标准。** 改为按类别打分的主题数据集、廉价模型扮演患者的模拟对话层，并让安全回归自动阻断发布。[原文](https://www.langchain.com/blog/how-numan-built-an-eval-first-ai-health-coach-with-langgraph-and-langsmith)\n10. **OpenAI 发布 GPT-6 系列在 COBOL、Fortran、Visual Basic 等低资源语言上的能力提升，并开源 MultiLangBench 与 COBOL 迁移评测套件。** 对做代码类 Agent 评测的团队，开放评测套件比模型分数更有用。[原文](https://openai.com/index/low-resource-programming-languages)\n\n## 与仓库进展的对照\n\n对照昨晚 22:00 的双仓总结（HC 窗口内唯一新提交 efca230c 把本地 pre-push 门禁改成 fail-closed：默认跑 gitleaks、缺工具即失败、新增 --audit 依赖审计、GITLEAKS_LOCAL=1 改走本机二进制；业务代码无改动；领导仓 0 提交）：\n\n- **丢上下文才是真瓶颈**：斯坦福基准的失败根因落在 compaction 之后的信息保真上，而 document-renderer golden snapshot 只固定渲染结果，没覆盖「跨文档传递后关键事实是否还在」。\n- **隔离优于隐藏状态**：Thin Orchestrator 用 14 个上下文隔离子智能体把状态交接做成显式接口，对照 orchestrator.ts 里跨 resume 保真的三连改动——现在靠提示词约定，值得改成显式状态块。\n- **门禁防泄露，不防越界**：Cairn 编排的入侵说明凭据与动作权限要单独收口，efca230c 的 fail-closed 只覆盖「密钥不落盘」。\n- **今天新提交有个待盯风险**：GITLEAKS_LOCAL=1 分支不再下载、也不再校验 manifest 与 archive 的 sha256，需确认没有 workflow 设置这个变量。\n- **成本参数在移动**：M3.1 Flash 降本 70%、Mercury 3 把 1M 上下文做到 1000 tok/s，payback horizon 实验应把单价与上下文成本当外生参数扫描。\n- **合规要留后路**：DHS 移除令提醒 deep-research 的检索与模型调用需可替换后端。\n- **暂无直接改动**：Viggle JST-2 属具身观察项；MultiLangBench 可留作评测参考。\n\n## 扫描口径\n\n数据取自 AIHOT 公开只读接口的今日日报、24 小时精选与热点榜，共 109 条候选，按 Agent / 智能体、大模型、具身智能三类优先筛选。条目按重要性排序，只陈述原文事实。\n\n---\n飞书文档：https://wv18cbjmgi0.feishu.cn/docx/RcMmd8EECoCJYwxicstcbU2lnHf\n",
+          "items": [
+            {
+              "title": "Meta 详解 Thin Orchestrator：上下文隔离子智能体编排",
+              "summary": "1300 行编排器只做路由与可靠性检查，分派给 14 个上下文隔离子智能体。"
+            },
+            {
+              "title": "斯坦福医疗 AI Agent 基准：完成率不足一半",
+              "summary": "最佳模型单次仅完成 46%，失败主因是跨文档传递时丢失上下文。"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "date": "2026-10-19",
       "model": "Amoo",
       "channels": [
