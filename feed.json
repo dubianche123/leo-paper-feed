@@ -37,6 +37,21 @@
               "pickId": "p2"
             }
           ]
+        },
+        {
+          "id": "03",
+          "title": "2026-10-23 · AI HOT 日报",
+          "content": "# 2026-10-23 · AI HOT 日报\n\n## 今日风向\n\n今天的主线是「智能体的权限与编排正在被重新分配」。Claude 宣布下周起 Pro、Max、Team 套餐默认启用 auto mode，不再逐步请求用户批准，而是用独立分类器审查 shell 命令——测试中拦截 89% 的危险命令，人工批准只有 14%；同时 Anthropic 应用团队给出反直觉指南：带 skills 的单智能体循环在质量、成本与延迟上常优于子智能体编排，有客户改成单循环后运行时间快约 2 倍，与昨天 Meta 的 thin orchestrator 形成正面对照。\n\n另一侧是「AI 开始自己证明与自己作恶」：Anthropic 与 Theorem 用 Claude 把 OSS-Fuzz 模糊测试转成规格，对 123 个开源库的 239 个入口点完成汇编级形式化证明；而 Symantec 的蜜罐抓到一个劫持无防护模型端点、可连续执行十万步的自持续攻击智能体。基础设施层面，OpenAI 正式发布面向低延迟小决策的 Decisions API，正好是「该不该压缩」这类判断的部署形态。\n\n## 今日要闻\n\n1. **Claude 网页、桌面与移动端下周起对 Pro、Max、Team 默认启用 auto mode：不再逐步请求批准，改由自动检查拦截高风险操作。** 官方测试中分类器拦截 89% 的危险 shell 命令，人工批准仅 14%，用户可随时切回手动。[原文](https://x.com/claudeai/status/2113360845409583307)\n2. **Anthropic 应用团队发布指南：何时把 orchestrator 下的路由器、规划器与领域子智能体合并进单个主 Agent 循环。** 带 skills 的单智能体常优于「一提示全包」与子智能体设计，成本与延迟更低，一家客户改单循环后运行时间约快 2 倍。[原文](https://claude.com/blog/building-agents-when-to-fold-subagents-into-your-main-agent-loop)\n3. **Anthropic 与 Theorem 用 Claude 把 OSS-Fuzz 模糊测试转化为规格，对 123 个开源库的 239 个入口点证明任意 64 MB 以下输入不崩溃，生成约 1.8 亿行 Rocq 证明。** 把模糊测试的信心升级为可机器检查的定理。[原文](https://www.anthropic.com/research/formal-verification)\n4. **OpenAI 正式发布 Decisions API：基于 GPT-6 Luna，面向分类、路由、评分等有界答案问题，速度最高比 Responses API 快 10 倍。** 「小决策」单独成一档低延迟低成本接口，正好对应压缩决策器的部署形态。[原文](https://openai.com/index/decisions-api)\n5. **METR 与 Redwood Research 各派一人，对 OpenAI 内部失准监测系统做三周高权限压力测试，产出 61 页报告并发现多个漏洞。** 监控系统本身也需要被独立红队。[原文](https://blog.redwoodresearch.org/p/red-teaming-openais-internal-agent)\n6. **Symantec 蜜罐截获「Skynet 模式」攻击智能体：劫持无防护模型端点，自主扫描、利用漏洞、窃取凭据并装挖矿程序，最多连续执行 100,000 步。** 连推理成本都由被劫持模型的主人承担。[原文](https://the-decoder.com/an-ai-agent-in-skynet-mode-hijacks-unprotected-language-models-to-launch-self-sustaining-cyberattacks/)\n7. **PHP2Shell 复盘：漏洞披露前黑客已有四天窗口，Cloudflare CEO 称公告前 10 小时数千次利用尝试、公告后 2 小时内增至数十万，目前百万级。** NSA 建议无法立即更新的机构先下线。[原文](https://arstechnica.com/security/2026/10/hackers-got-a-four-day-head-start-on-epic-php2shell-vulnerability/)\n8. **Anthropic 把 Agent Skills 开放标准捐赠给 Linux Foundation 旗下 Agentic AI Foundation，此前已捐 MCP。** Agent 生态的互操作标准开始由基金会维护。[原文](https://www.anthropic.com/news/donating-agent-skills-to-the-agentic-ai-foundation)\n9. **Bloomberg 报道 DeepSeek 新一轮融资约 150 亿美元，投前估值约 748 亿美元，CATL 与腾讯为主要投资方，六个月累计募资约 225 亿美元。** 融资目标在谈判中两次上调。[原文](https://x.com/rohanpaul_ai/status/2113106318659928525)\n10. **Replit 发布 Monitoring Agent：读取生产日志与指标调查故障，autofix 后验证修复并邮件汇报，auto-publish 后可自动部署。** 值班工程师被做成常驻智能体，自主修复的边界成为新问题。[原文](https://replit.com/blog/replit-monitoring-agent)\n\n## 与仓库进展的对照\n\n对照昨晚 22:00 的双仓总结（HC 窗口内 0 提交、main 仍停在 10-20；复查挂账三条未消解：effective scopes 行为待核、gitleaks fail-closed 是否等价已挂第三天、产物树渲染只有 1 个测试；领导仓仅 1 条文档提交，custom-project skill 升 1.1.0）：\n\n- **审批自动化有了对照数字**：分类器拦截 89%、人工批准只有 14%，与 HC 把用户删除改成按 effective scopes 判定是同一决策；数字支持「分类器先筛、人审兜底」，不支持去掉人审。\n- **子智能体不是默认最优**：Anthropic 指南与昨天 Meta 的 thin orchestrator 结论相反，拆分与否应按任务长度与状态复杂度分档；HC 的跨 resume 保真若继续靠提示词维持，合并可能比拆更省。\n- **小决策可单独部署**：Decisions API 把分类/路由/评分做成低延迟档，压缩决策器不必挂大模型，可按 turn 在线跑成本判断。\n- **安全机制要被验证**：METR 红队发现监控自身漏洞，等价于 HC 那条「gitleaks fail-closed 是否在 Python 版保留」——写完不等于生效，需要一次对抗性验证。\n- **停得住才算可控**：Replit 把「修复后自动上线」当卖点，而 HC 的 resume 至今只有「继续」没有「真停」。\n- **标准外移的连带影响**：Skills 交给 AAIF 后，custom-project skill 的格式与依赖声明要留意跟规范对齐。\n- **暂无直接改动**：PHP2Shell 利用规模、Skynet 攻击链属外部威胁情报；DeepSeek 融资只影响长期成本假设。\n\n## 扫描口径\n\n数据取自 AIHOT 公开只读接口的今日日报、24 小时精选与热点榜，按 Agent / 智能体、大模型、具身智能三类优先筛选。今日无具身智能方向新发布，故该类缺席。条目按重要性排序，只陈述原文事实。\n\n---\n飞书文档：https://wv18cbjmgi0.feishu.cn/docx/GCQxdzG1coIj41xokNVc8vgCnvg\n",
+          "items": [
+            {
+              "title": "Claude 下周起默认启用 auto mode 自动审批",
+              "summary": "Pro/Max/Team 不再逐步请求批准，分类器拦截 89% 危险命令，人工批准仅 14%。"
+            },
+            {
+              "title": "Anthropic：何时把子智能体合并进主循环",
+              "summary": "带 skills 的单智能体常优于子智能体编排，成本更低，运行快约 2 倍。"
+            }
+          ]
         }
       ]
     },
